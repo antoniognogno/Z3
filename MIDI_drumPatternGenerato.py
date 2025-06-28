@@ -1,11 +1,14 @@
 import os
 os.environ['LIBROSA_AUDIO'] = 'soundfile' #imposta la variabile d'ambiente.
 
+
 from z3 import *
 import soundfile as sf
 import numpy as np
 import librosa
 
+# forza soundfile a usare libsndfile
+sf.default_backend = 'libsndfile'
 
 # Parametri Pattern
 num_slot = 16  # numero di slot totali
@@ -135,7 +138,7 @@ if s.check() == sat:
                   case 9:
                       nome_strumento = "9_Crash"
 
-              percorso_file_audio = "Strumenti/" + nome_strumento + ".wav"  # aggiungo la cartella Strumenti/ all'inizio.
+              percorso_file_audio = "Strumenti/" + nome_strumento + ".mp3"  # aggiungo la cartella Strumenti/ all'inizio.
               if os.path.exists(percorso_file_audio):
                 try:
                     audio_segmento, sr = librosa.load(percorso_file_audio, sr=frequenza_campionamento, mono=True)  # carico con librosa e forzo mono
